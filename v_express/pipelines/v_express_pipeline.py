@@ -22,7 +22,7 @@ from einops import rearrange
 from tqdm import tqdm
 from transformers import CLIPImageProcessor
 
-from modules import ReferenceAttentionControl
+from v_express.modules import ReferenceAttentionControl
 from .context import get_context_scheduler
 from .utils import get_tensor_interpolation_method
 

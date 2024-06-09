@@ -13,10 +13,10 @@ from insightface.app import FaceAnalysis
 from omegaconf import OmegaConf
 from transformers import CLIPVisionModelWithProjection, Wav2Vec2Model, Wav2Vec2Processor
 
-from modules import UNet2DConditionModel, UNet3DConditionModel, VKpsGuider, AudioProjection
-from pipelines import VExpressPipeline
-from pipelines.utils import draw_kps_image, save_video
-from pipelines.utils import retarget_kps
+from v_express.modules import UNet2DConditionModel, UNet3DConditionModel, VKpsGuider, AudioProjection
+from v_express.pipelines import VExpressPipeline
+from v_express.pipelines.utils import draw_kps_image, save_video
+from v_express.pipelines.utils import retarget_kps
 
 
 def parse_args(args=None):
