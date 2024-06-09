@@ -14,3 +14,4 @@ xformers==0.0.22
 av==11.0.0
 gradio==4.36.0
 dlib==19.24.4
+accelerate==0.31.0

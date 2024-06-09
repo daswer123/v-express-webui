@@ -149,7 +149,7 @@ def convert_video(args=None):
     audio_projection_path = args.audio_projection_path
     motion_module_path = args.motion_module_path
 
-    inference_config_path = './inference_v2.yaml'
+    inference_config_path = 'v_express/inference_v2.yaml'
     scheduler = get_scheduler(inference_config_path)
     reference_net = load_reference_net(unet_config_path, reference_net_path, dtype, device)
     denoising_unet = load_denoising_unet(
@@ -209,6 +209,7 @@ def convert_video(args=None):
             orig_freq=audio_sampling_rate,
             new_freq=args.standard_audio_sampling_rate,
         )
+    audio_waveform = audio_waveform.float()  # Convert to floating-point data type
     audio_waveform = audio_waveform.mean(dim=0)
 
     duration = audio_waveform.shape[0] / args.standard_audio_sampling_rate
