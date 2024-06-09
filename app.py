@@ -98,6 +98,9 @@ def convert_video_gr(converter_save_path, converter_ref_img, converter_ref_audio
         os.mkdir("output")
         
     
+    temp_audio = None 
+    # converted_prepared_sequence = None
+    
     if convert_video_extract is not None:
        converted_prepared_sequence, temp_audio = extract_kps_sequence_temp(convert_video_extract, convert_video_extract_crop, convert_video_extract_device, convert_video_extract_gpu_id, convert_video_extract_insightface_model_path, convert_video_extract_height, convert_video_extract_width)
        
@@ -144,14 +147,6 @@ def convert_video_gr(converter_save_path, converter_ref_img, converter_ref_audio
     # If file exists delete it
     if os.path.exists(temp_video_filename):
         os.remove(temp_video_filename)
-
-    # Remove temporary files
-    if os.path.exists(temp_audio):
-        os.remove(temp_audio)
-        
-    if os.path.exists(converted_prepared_sequence):
-        os.remove(converted_prepared_sequence)
-    
     
     return "Done",converter_save_path
 
@@ -194,7 +189,7 @@ with gr.Blocks() as demo:
                 
                 
     # STAGE 2 
-    with gr.Tab("2 - Extractor"):
+    with gr.Tab("2 - Converter"):
             with gr.Row():
                 with gr.Column():
                     converter_save_path = gr.Textbox(visible=False,label="Save Path", value="./output")
@@ -275,7 +270,7 @@ with gr.Blocks() as demo:
         return gr.update(choices=filepaths, value=filepaths[0])
         
     
-    converted_prepared_sequence_refresh.click(fn=reload_available_sequences, outputs=[converted_prepared_sequence])
+    converted_prepared_sequence_refresh.click(fn=reload_available_sequences_gr, outputs=[converted_prepared_sequence])
     converter_btn.click(convert_video_gr, 
     inputs=
     [
