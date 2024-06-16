@@ -203,13 +203,16 @@ def convert_video(args=None):
     _, audio_waveform, meta_info = torchvision.io.read_video(args.audio_path, pts_unit='sec')
     audio_sampling_rate = meta_info['audio_fps']
     print(f'Length of audio is {audio_waveform.shape[1]} with the sampling rate of {audio_sampling_rate}.')
+    
+    audio_waveform = audio_waveform.float()  # Convert to floating-point data type
+    
     if audio_sampling_rate != args.standard_audio_sampling_rate:
         audio_waveform = torchaudio.functional.resample(
             audio_waveform,
             orig_freq=audio_sampling_rate,
             new_freq=args.standard_audio_sampling_rate,
         )
-    audio_waveform = audio_waveform.float()  # Convert to floating-point data type
+    
     audio_waveform = audio_waveform.mean(dim=0)
 
     duration = audio_waveform.shape[0] / args.standard_audio_sampling_rate
